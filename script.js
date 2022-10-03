@@ -2,6 +2,7 @@ console.log("Rock Paper Scissor");
 let randomNumber = 0;
 let response = '';
 
+// Function to get a response based on random number generated in the range of 0-2 
 function getComputerChoice() {
     randomNumber = parseInt(Math.random() * 3);
         if (randomNumber == 0) {
@@ -19,6 +20,9 @@ function getComputerChoice() {
 
 }
 
+
+// Function that takes playesselection and computerselection and prints round results
+// Also adds 1 to their respective score everytime they win 
 function playRound(playerSelection,computerSelection=getComputerChoice()) {
         
         if (playerSelection == 'paper') {
@@ -74,6 +78,9 @@ function playRound(playerSelection,computerSelection=getComputerChoice()) {
 
 let computerScore = 0;
 let playerScore = 0;
+
+//Function to keep running the game in loop until anyone's(player or computer) score reaches 5
+//Also ends game if game is cancelled by user
 function game(){
     while (playerScore !== 5 && computerScore !== 5) { 
     let userInput = prompt('Your Choice?');
@@ -86,6 +93,8 @@ function game(){
     playRound(playerSelection);  
 }
 }
+
+//Tells final score and winner name
 if (playerScore == 5 || computerScore == 5 ) {
     console.log('Computer\'s Score: ', computerScore);
     console.log('Player\'s Score: ', playerScore);  
