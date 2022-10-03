@@ -19,7 +19,7 @@ function getComputerChoice() {
 
 }
 
-function rps(playerSelection,computerSelection=getComputerChoice()) {
+function playRound(playerSelection,computerSelection=getComputerChoice()) {
         
         if (playerSelection == 'paper') {
             console.log(`Player Response is: ${playerSelection}`)
@@ -74,7 +74,8 @@ function rps(playerSelection,computerSelection=getComputerChoice()) {
 
 let computerScore = 0;
 let playerScore = 0;
-while (playerScore !== 5 && computerScore !== 5) { 
+function game(){
+    while (playerScore !== 5 && computerScore !== 5) { 
     let userInput = prompt('Your Choice?');
     if (userInput === null || userInput === undefined) {
         alert("Player Cancelled the game :(");
@@ -82,9 +83,9 @@ while (playerScore !== 5 && computerScore !== 5) {
         break;
     }
     let playerSelection = userInput.toLowerCase();
-    rps(playerSelection);  
+    playRound(playerSelection);  
 }
-
+}
 if (playerScore == 5 || computerScore == 5 ) {
     console.log('Computer\'s Score: ', computerScore);
     console.log('Player\'s Score: ', playerScore);  
@@ -98,3 +99,5 @@ if (playerScore == 5 || computerScore == 5 ) {
         console.log ("Tie");
     }
 }
+
+game();
