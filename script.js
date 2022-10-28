@@ -1,6 +1,64 @@
-console.log("Rock Paper Scissor");
+const buttons = document.querySelectorAll(".mainGame button");
+const playerChoice = document.querySelector(".playerChoice");
+const computerChoice = document.querySelector(".computerChoice");
+const result_  = document.querySelector(".result");
+const _playerScore = document.querySelector(".playerScore");
+const _computerScore = document.querySelector(".computerScore");
+const mainGame = document.querySelector(".mainGame");
+const startGame = document.querySelector(".startGame");
+const gameResult = mainGame.appendChild(document.createElement("p"));
+const restartGame = document.querySelector(".restartGame")
 let randomNumber = 0;
 let response = '';
+let result = '';
+let computerScore = 0;
+let playerScore = 0;
+
+restartGame.textContent = "Restart Game";
+
+function _restartGame(){
+    playerScore = 0;
+    computerScore = 0;
+    playerChoice.innerHTML = "Player Response is: ";
+    computerChoice.textContent = "Computer response is: ";
+    result_.innerHTML = "Result: ";
+    _playerScore.innerHTML = "Player Score is: " + playerScore;
+    _computerScore.innerHTML = "Computer Score is: " + computerScore;
+    gameResult.textContent = "";
+    restartGame.style.display = "none"
+}
+
+function beginGame() {
+    mainGame.style.display = "block";
+    startGame.style.display = "none";
+}
+
+buttons.forEach(button => { 
+    button.addEventListener('click', game)
+});
+
+function game() {
+    if (playerScore !== 5 && computerScore !== 5) { 
+        playRound(this.textContent);
+        playerChoice.innerHTML = "Player Response is: " + this.textContent;
+        result_.innerHTML = "Result: " + result;
+        _playerScore.innerHTML = "Player Score is: " + playerScore;
+        _computerScore.innerHTML = "Computer Score is: " + computerScore;
+
+        if (playerScore == 5) {      
+            gameResult.textContent = "Player Won!!! Congratulations!!"            
+            restartGame.style.display = "block"
+        
+        }
+        
+        else if (computerScore == 5) {
+            gameResult.textContent = "Computer Won :( Try Again"
+            restartGame.style.display = "block"
+
+        }
+    }
+}
+
 
 // Function to get a response based on random number generated in the range of 0-2 
 function getComputerChoice() {
@@ -14,8 +72,7 @@ function getComputerChoice() {
         else if (randomNumber == 2) {
             response = 'Scissor';
         }
-    
-    
+    computerChoice.textContent = "Computer response is: " + response;
     return response;
 
 }
@@ -25,88 +82,44 @@ function getComputerChoice() {
 // Also adds 1 to their respective score everytime they win 
 function playRound(playerSelection,computerSelection=getComputerChoice()) {
         
-        if (playerSelection == 'paper') {
-            console.log(`Player Response is: ${playerSelection}`)
-            console.log(`Computer Response is: ${response}`);
+        if (playerSelection == 'Paper') {
             if (computerSelection == 'Rock') {
-                console.log ("You Win! Paper Beats Rock");
+                result = ("You Win! Paper Beats Rock");
                 playerScore++;
             }
             else if (computerSelection == 'Scissor') {
-                console.log ("You Lose! Scissor Beats Paper");
+                result = ("You Lose! Scissor Beats Paper");
                 computerScore++;
             }
             else {
-                console.log('Tie');
+                result = ('Tie');
             }
         }
-        else if (playerSelection == 'scissor') {
-            console.log(`Player Response is: ${playerSelection}`)
-            console.log(`Computer Response is: ${response}`);
+        else if (playerSelection == 'Scissor') {
             if (computerSelection == 'Rock') {
-                console.log ("You Lose! Rock Beats Scissor");
+                result = ("You Lose! Rock Beats Scissor");
                 computerScore++;
             }
             else if (computerSelection == 'Paper') {
-                console.log ("You Win! Scissor Beats Paper");
+                result = ("You Win! Scissor Beats Paper");
                 playerScore++;
             }
             else {
-                console.log('Tie');
+                result =('Tie');
             }
         }
-        else if (playerSelection == 'rock') {
-            console.log(`Player Response is: ${playerSelection}`)
-            console.log(`Computer Response is: ${response}`);
+        else if (playerSelection == 'Rock') {
             if (computerSelection == 'Scissor') {
-                console.log ("You Win! Rock Beats Scissor");
+                result = ("You Win! Rock Beats Scissor");
                 playerScore++;
             }
             else if (computerSelection == 'Paper') {
-                console.log ("You Lose! Paper Beats Rock");
+                result = ("You Lose! Paper Beats Rock");
                 computerScore++;
             }
             else {
-                console.log('Tie');
+                result = ('Tie');
             }
         }
         
-        else {
-            alert("Enter Valid Response (Rock, Paper or Scissor).");
-        }
     }
-
-let computerScore = 0;
-let playerScore = 0;
-
-//Function to keep running the game in loop until anyone's(player or computer) score reaches 5
-//Also ends game if game is cancelled by user
-function game(){
-    while (playerScore !== 5 && computerScore !== 5) { 
-    let userInput = prompt('Your Choice?');
-    if (userInput === null || userInput === undefined) {
-        alert("Player Cancelled the game :(");
-        console.log("Player Cancelled the game :(");
-        break;
-    }
-    let playerSelection = userInput.toLowerCase();
-    playRound(playerSelection);  
-}
-}
-
-//Tells final score and winner name
-if (playerScore == 5 || computerScore == 5 ) {
-    console.log('Computer\'s Score: ', computerScore);
-    console.log('Player\'s Score: ', playerScore);  
-    if (computerScore < playerScore) {
-        console.log ("Player Wins!!");
-    }
-    else if (computerScore > playerScore) {
-        console.log ("Computer Wins!!");
-    }
-    else {
-        console.log ("Tie");
-    }
-}
-
-game();
